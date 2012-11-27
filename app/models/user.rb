@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
   
   validates_presence_of :email
   validates_uniqueness_of :email
-  validates_confirmation_of :password
-  validate :password_non_blank 
+  # validates_confirmation_of :password
+  # validate :password_non_blank 
   
   def self.authenticate(name, password) 
     user = self.find_by_name(name)
@@ -39,7 +39,8 @@ class User < ActiveRecord::Base
     end
     
     def self.encrypted_password(password, salt) 
-      string_to_hash = password + Time.now + salt Digest::SHA1.hexdigest(string_to_hash)
+      string_to_hash = password + Time.now + salt 
+      Digest::SHA1.hexdigest(string_to_hash)
     end
     
 end
